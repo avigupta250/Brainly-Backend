@@ -29,7 +29,7 @@ export const signUp=async(req:Request,res:Response):Promise<void>=>{
          console.log("zod verification ",parseData)
          if(!parseData.success){
           
-            res.json({
+            res.status(400).json({
                success:false,
                 message:parseData.error.errors[0].message
             })

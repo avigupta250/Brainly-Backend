@@ -34,7 +34,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const parseData = reqbody.safeParse(req.body);
         console.log("zod verification ", parseData);
         if (!parseData.success) {
-            res.json({
+            res.status(400).json({
                 success: false,
                 message: parseData.error.errors[0].message
             });
