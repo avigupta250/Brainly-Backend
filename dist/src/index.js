@@ -15,9 +15,10 @@ app.use((0, cors_1.default)());
 const PORT = 3000;
 (0, connectDb_1.default)();
 app.use(express_1.default.json());
-app.get("/api/v1/brain/:shareLink", Link_1.shareLink);
+// app.get("/api/v1/brain/:shareLink",shareLink)
 app.use("/api/v1", userRoutes_1.default);
-app.use("/api/v1/", auth_1.default, contentRoutes_1.default);
+app.use("/api/v1/auth", auth_1.default, contentRoutes_1.default);
+app.get("/api/v1/brain/:shareLink", Link_1.shareLink);
 app.post("/api/v1/status", Link_1.checkStatus);
 app.post("/api/v1/brain/share", auth_1.default, Link_1.createLink);
 app.get("/", (req, res) => {
