@@ -30,6 +30,7 @@ export const signUp=async(req:Request,res:Response):Promise<void>=>{
          if(!parseData.success){
           
             res.json({
+               success:false,
                 message:parseData.error.errors[0].message
             })
             return
