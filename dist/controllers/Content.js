@@ -42,7 +42,7 @@ const getAllContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const userId = req.userId;
         const content = yield Content_1.Content.find({
             userId: userId,
-        }).populate("userId", ["email"]).sort({ createdAt: -1 }).populate("tags");
+        }).populate("userId", ["email"]).sort({ createdAt: -1 }).populate("tags", ["title"]);
         res.json({
             content,
         });
