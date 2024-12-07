@@ -13,13 +13,14 @@ exports.deleteContent = exports.getAllContent = exports.createContent = void 0;
 const Content_1 = require("../models/Content");
 const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { link, title, type } = req.body;
+        const { link, title, type, description, tags } = req.body;
         yield Content_1.Content.create({
             link,
             type,
             title: title,
+            description,
             userId: req.userId,
-            tags: [],
+            tags,
         });
         const content = yield Content_1.Content.find({ userId: req.userId }).sort({ createdAt: -1 });
         res.json({
@@ -28,7 +29,12 @@ const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             userContent: content
         });
     }
-    catch (error) { }
+    catch (error) {
+        res.json({
+            success: false,
+            error: error
+        });
+    }
 });
 exports.createContent = createContent;
 const getAllContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

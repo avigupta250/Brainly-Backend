@@ -8,13 +8,14 @@ export const createContent = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { link, title, type } = req.body;
+    const { link, title, type,description,tags } = req.body;
     await Content.create({
       link,
       type,
       title: title,
+      description,
       userId: req.userId,
-      tags: [],
+      tags,
     });
    const content =await Content.find({userId:req.userId}).sort({ createdAt: -1 })
     res.json({
@@ -22,7 +23,12 @@ export const createContent = async (
       user: req.userId,
       userContent:content
     });
-  } catch (error) {}
+  } catch (error) {
+    res.json({
+      success:false,
+      error:error
+    })
+  }
 };
 
 export const getAllContent = async (
