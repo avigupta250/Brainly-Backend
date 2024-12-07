@@ -41,12 +41,17 @@ export const getAllContent = async (
       userId: userId,
     },
     
-  ).populate("userId", ["email"]).sort({ createdAt: -1 });
+  ).populate("userId", ["email"]).sort({ createdAt: -1 }).populate("tags");
 
     res.json({
       content,
     });
-  } catch (err) {}
+  } catch (err) {
+    res.json({
+      success:false,
+    error:err
+    })
+  }
 };
 
 export const deleteContent = async (

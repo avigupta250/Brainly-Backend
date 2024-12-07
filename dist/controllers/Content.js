@@ -42,12 +42,17 @@ const getAllContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const userId = req.userId;
         const content = yield Content_1.Content.find({
             userId: userId,
-        }).populate("userId", ["email"]).sort({ createdAt: -1 });
+        }).populate("userId", ["email"]).sort({ createdAt: -1 }).populate("tags");
         res.json({
             content,
         });
     }
-    catch (err) { }
+    catch (err) {
+        res.json({
+            success: false,
+            error: err
+        });
+    }
 });
 exports.getAllContent = getAllContent;
 const deleteContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
