@@ -9,6 +9,15 @@ export const createContent = async (
 ): Promise<void> => {
   try {
     const { link, title, type,description,tags } = req.body;
+
+    if(!link ||!type||!title||!description||!tags){
+      res.status(400).json({
+     success:false,
+     message:"All fields are required"
+      })
+      return 
+    }
+    
     await Content.create({
       link,
       type,
@@ -18,13 +27,7 @@ export const createContent = async (
       tags,
     });
 
-    if(!link ||!type||!title||!description||!tags){
-      res.status(400).json({
-     success:false,
-     message:"All fields are required"
-      })
-      return 
-    }
+    
    const content =await Content.find({userId:req.userId}).sort({ createdAt: -1 })
     res.status(200).json({
       message: "Content added",
