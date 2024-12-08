@@ -17,6 +17,14 @@ export const createContent = async (
       userId: req.userId,
       tags,
     });
+
+    if(!link ||!type||!title||!description||!tags){
+      res.status(400).json({
+     success:false,
+     message:"All fields are required"
+      })
+      return 
+    }
    const content =await Content.find({userId:req.userId}).sort({ createdAt: -1 })
     res.status(200).json({
       message: "Content added",
