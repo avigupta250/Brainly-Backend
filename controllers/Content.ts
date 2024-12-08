@@ -18,13 +18,13 @@ export const createContent = async (
       tags,
     });
    const content =await Content.find({userId:req.userId}).sort({ createdAt: -1 })
-    res.json({
+    res.status(200).json({
       message: "Content added",
       user: req.userId,
       userContent:content
     });
   } catch (error) {
-    res.json({
+    res.status(400).json({
       success:false,
       error:error
     })
@@ -43,11 +43,11 @@ export const getAllContent = async (
     
   ).populate("userId", ["email"]).sort({ createdAt: -1 }).populate("tags");
 
-    res.json({
+    res.status(200).json({
       content,
     });
   } catch (err) {
-    res.json({
+    res.status(400).json({
       success:false,
     error:err
     })
@@ -70,7 +70,7 @@ export const deleteContent = async (
       userId: req.userId,
     });
 
-    res.json({
+    res.status(200).json({
         message: "Deleted"
     })
   } catch (err) {}
