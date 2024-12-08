@@ -12,7 +12,7 @@ const ContentSchema = new mongoose_1.default.Schema({
     },
     type: {
         type: String,
-        enum: ["image", "video", "article", "audio", "youtube", "twitter"],
+        enum: ["image", "video", "article", "music", "youtube", "twitter", "link"],
         required: true,
     },
     description: {

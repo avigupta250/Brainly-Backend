@@ -57,7 +57,7 @@ export const shareLink = async (
 
     const content = await Content.find({
       userId: link?.userId,
-    }).populate("userId","email");
+    }).populate("userId","email").populate("tags");
 
     res.json({
       content,
