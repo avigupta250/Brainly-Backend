@@ -9,4 +9,5 @@ const router = express_1.default.Router();
 router.post("/content", Content_1.createContent);
 router.get("/content", Content_1.getAllContent);
 router.delete("/content", Content_1.deleteContent);
+router.put("/content", Content_1.editContent);
 exports.default = router;

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteContent = exports.getAllContent = exports.createContent = void 0;
+exports.editContent = exports.deleteContent = exports.getAllContent = exports.createContent = void 0;
 const Content_1 = require("../models/Content");
 const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -76,6 +76,38 @@ const deleteContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             message: "Deleted"
         });
     }
-    catch (err) { }
+    catch (err) {
+        res.status(400).json({
+            success: false,
+            message: err
+        });
+    }
 });
 exports.deleteContent = deleteContent;
+const editContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { link, title, type, description, tags, id } = req.body;
+        if (!link || !type || !title || !description || !tags) {
+            res.status(400).json({
+                success: false,
+                message: "All fields are required"
+            });
+            return;
+        }
+        const content = yield Content_1.Content.findOneAndUpdate({ _id: id }, {
+            title, tags, type, description, link
+        }, { new: true });
+        res.status(200).json({
+            success: true,
+            updated_Content: content
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while updating the content.",
+            error: err,
+        });
+    }
+});
+exports.editContent = editContent;

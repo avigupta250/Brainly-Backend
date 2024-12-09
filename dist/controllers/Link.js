@@ -54,7 +54,7 @@ const shareLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const content = yield Content_1.Content.find({
             userId: link === null || link === void 0 ? void 0 : link.userId,
-        }).populate("userId", "email");
+        }).populate("userId", "email").populate("tags");
         res.json({
             content,
         });

@@ -84,7 +84,48 @@ export const deleteContent = async (
     res.status(200).json({
         message: "Deleted"
     })
-  } catch (err) {}
+  } catch (err) {
+    res.status(500).json({
+      success:false,
+      message:err
+    })
+  }
 };
 
 
+
+export const editContent=async(
+  req:AuthenticatedRequest,
+  res:Response
+):Promise<void>=>{
+  try{
+
+    const {link, title, type,description,tags,id}=req.body;
+
+    if(!link ||!type||!title||!description||!tags||!id){
+      res.status(400).json({
+     success:false,
+     message:"All fields are required"
+      })
+      return 
+    }
+    
+
+    const content=await Content.findOneAndUpdate({_id:id},{
+      title,tags,type,description,link
+    },{new:true});
+
+    res.status(200).json({
+      success:true,
+      updated_Content:content
+    })
+
+  }catch(err)
+  {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while updating the content.",
+      error: err,
+    });
+  }
+}
