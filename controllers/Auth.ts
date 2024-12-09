@@ -10,7 +10,7 @@ dotenv.config();
 
 
 const reqbody=z.object({
-   email:z.string().email(),
+   email:z.string(),
    password:z.string()
    .min(6, { message: "Password must be at least 8 characters long." })
    // .max(32, { message: "Password must not exceed 32 characters." })
